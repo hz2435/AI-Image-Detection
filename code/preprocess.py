@@ -1,5 +1,5 @@
-import tensorflow as tf  
 import numpy as np 
+import tensorflow as tf
 import os
 import cv2
 import matplotlib.pyplot as plt
@@ -33,7 +33,6 @@ def get_images():
     real_train = []
     for image in os.listdir("../data/train/REAL"):
         real_train.append(preprocess_image(os.path.join("../data/train/REAL", image)))
-        pass
 
     return fake_test, real_test, fake_train, real_train
 
