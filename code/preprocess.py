@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 def preprocess_image(image_path):
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    img = cv2.resize(img, (32, 32))
     img = img.astype(np.float32) / 255.0 
     return img
 

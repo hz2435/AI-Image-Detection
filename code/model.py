@@ -39,6 +39,21 @@ class Model:
 
     def train_and_eval(self):
         train_data, train_labels, test_data, test_labels = get_data()
+
+        num_samples = len(train_data)
+        indices = tf.range(num_samples)
+        shuffled_indices = tf.random.shuffle(indices)
+
+        train_data = tf.gather(train_data, shuffled_indices)
+        train_labels = tf.gather(train_labels, shuffled_indices)
+
+        num_samples = len(test_data)
+        indices = tf.range(num_samples)
+        shuffled_indices = tf.random.shuffle(indices)
+
+        test_data = tf.gather(test_data, shuffled_indices)
+        test_labels = tf.gather(test_labels, shuffled_indices)
+
         self.model.compile(optimizer='adam',
               loss='binary_crossentropy',
               metrics=['accuracy'])
