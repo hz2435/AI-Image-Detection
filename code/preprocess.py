@@ -3,11 +3,13 @@ import tensorflow as tf
 import os
 import cv2
 import matplotlib.pyplot as plt
+from ela import ela
 
 def preprocess_image(image_path):
-    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    # img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    # img = img.astype(np.float32) / 255.0 
+    img = ela(image_path)
     img = cv2.resize(img, (32, 32))
-    img = img.astype(np.float32) / 255.0 
     return img
 
 def calculate_prnu(images):
@@ -46,10 +48,10 @@ def get_data():
     test_data = fake_test + real_test
     test_labels = np.array([0 for _ in range(len(fake_test))] + [1 for _ in range(len(real_test))])
 
-    prnu_train = calculate_prnu(train_data)
-    train_data = np.array(extract_prnu_residuals(train_data, prnu_train))
+    # prnu_train = calculate_prnu(train_data)
+    # train_data = np.array(extract_prnu_residuals(train_data, prnu_train))
 
-    prnu_test = calculate_prnu(test_data)
-    test_data = np.array(extract_prnu_residuals(test_data, prnu_test))
+    # prnu_test = calculate_prnu(test_data)
+    # test_data = np.array(extract_prnu_residuals(test_data, prnu_test))
 
     return train_data, train_labels, test_data, test_labels

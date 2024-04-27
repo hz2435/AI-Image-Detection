@@ -1,11 +1,15 @@
 import tensorflow as tf  
 import matplotlib.pyplot as plt
 from preprocess import get_data
+import os
 
 class Model:
     def __init__(self):
+        if (os.getcwd().split('/')[-1] != 'code'):
+            raise IsADirectoryError("Must be in code directory")
+        
         self.model = tf.keras.Sequential([
-            tf.keras.layers.Reshape((32, 32, 1), input_shape=(32, 32)),
+            tf.keras.layers.Input(shape=(32, 32, 3)),
             
             tf.keras.layers.Conv2D(32, (3, 3), padding='same'),
             tf.keras.layers.BatchNormalization(),
