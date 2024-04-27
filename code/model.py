@@ -15,26 +15,31 @@ class Model:
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.ReLU(),
             tf.keras.layers.MaxPooling2D((2, 2)),
+            tf.keras.layers.Dropout(0, 25),
             
             tf.keras.layers.Conv2D(64, (3, 3), padding='same'),
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.ReLU(),
             tf.keras.layers.MaxPooling2D((2, 2)),
+            tf.keras.layers.Dropout(0, 25),
             
             tf.keras.layers.Conv2D(64, (3, 3), padding='same'),
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.ReLU(),
             tf.keras.layers.MaxPooling2D((2, 2)),
+            tf.keras.layers.Dropout(0, 25),
             
             tf.keras.layers.Conv2D(64, (3, 3), padding='same'),
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.ReLU(),
             tf.keras.layers.MaxPooling2D((2, 2)),
+            tf.keras.layers.Dropout(0, 25),
             
             tf.keras.layers.Flatten(),
             tf.keras.layers.Dense(64),
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.ReLU(),
+            tf.keras.layers.Dropout(0, 5),
             
             tf.keras.layers.Dense(1, activation='sigmoid')
         ])
