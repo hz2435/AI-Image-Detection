@@ -9,7 +9,8 @@ class Model:
             raise IsADirectoryError("Must be in code directory")
         
         self.model = tf.keras.Sequential([
-            tf.keras.layers.Input(shape=(32, 32, 3)),
+            tf.keras.layers.Input(shape=(32, 32, 3)), #change shape to (32, 32, 1) for ELA to work!!!!!! 
+                                                      #change shape to (32, 32, 3) for PRNU to work!!!!!!
             
             tf.keras.layers.Conv2D(32, (3, 3), padding='same'),
             tf.keras.layers.BatchNormalization(),
@@ -71,6 +72,7 @@ class Model:
 
         test_loss, test_accuracy = self.model.evaluate(test_data, test_labels)
         print("Test Accuracy:", test_accuracy)
+        print("Test Loss:", test_loss)
 
         self.model.save("saved_model.h5")
 

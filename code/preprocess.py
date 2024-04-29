@@ -7,20 +7,26 @@ from ela import ela
 from prnu import prnu
 
 def preprocess_image(image_path):
-    # img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    # img = img.astype(np.float32) / 255.0 
-    img = ela(image_path)
-    #prnu_img = prnu(image_path)
-    img = cv2.resize(img, (32, 32))
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    img = img.astype(np.float32) / 255.0 
+
+    # uncomment this line for ELA
+    img = ela(image_path) 
+
+    ## uncomment the 3 lines below for PRNU
+
+    # img = prnu(image_path)
+    # img = cv2.resize(img, (32, 32))
+    # img = np.expand_dims(img, axis=-1)  # Add channel dimension
     return img
 
-def calculate_prnu(images):
-    prnu = np.mean(images, axis=0) 
-    return prnu
+# def calculate_prnu(images):
+#     prnu = np.mean(images, axis=0) 
+#     return prnu
 
-def extract_prnu_residuals(images, prnu):
-    prnu_residuals = [img - prnu for img in images]
-    return np.array(prnu_residuals)
+# def extract_prnu_residuals(images, prnu):
+#     prnu_residuals = [img - prnu for img in images]
+#     return np.array(prnu_residuals)
 
 def get_images():
     fake_test = []
