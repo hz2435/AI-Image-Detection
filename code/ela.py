@@ -20,14 +20,14 @@ def ela(image_path):
     ela_im = ImageChops.difference(im, ImageChops.invert(tmp_fname_im))
     # ela_im = cv2.equalizeHist(np.array(ela_im))
 
-    plt.imshow(ela_im, cmap='gray') 
-    plt.axis('off') 
-    plt.show()
+    # plt.imshow(ela_im, cmap='gray') 
+    # plt.axis('off') 
+    # plt.show()
 
 
     os.remove("temp")
 
     return np.array(ela_im)
-ela("dog.jpg")
+# ela("dog.jpg")
 
     # ela_im.save("ela_image2.jpg")
