@@ -11,29 +11,23 @@ def denoise(image):
 
     image = image.astype(np.float32)
     
-    # Decompose the image using discrete wavelet transform
     wavelet = 'db8'
     max_level = pywt.dwt_max_level(data_len=min(image.shape), filter_len=pywt.Wavelet(wavelet).dec_len)
     coeffs = pywt.wavedec2(image, wavelet, level=max_level)
 
-    # Estimate the noise sigma from the median absolute deviation of the high-frequency coefficients
     sigma = np.median(np.abs(coeffs[-1])) / 0.6745
     threshold = sigma * np.sqrt(2 * np.log(image.size))
 
-    # Apply soft thresholding to detail coefficients
-    denoised_coeffs = [coeffs[0]]  # Keep the approximation coefficients
+    denoised_coeffs = [coeffs[0]] 
     for detail_level in coeffs[1:]:
         denoised_level = []
         for band in detail_level:
-            # Soft threshold
             band_thresholded = pywt.threshold(band, threshold, mode='soft')
             denoised_level.append(band_thresholded)
         denoised_coeffs.append(tuple(denoised_level))
 
-    # Reconstruct the denoised image using the inverse DWT
     denoised_image = pywt.waverec2(denoised_coeffs, wavelet)
 
-    #clip values
     denoised_image = np.clip(denoised_image, 0, 255)
 
     return denoised_image.astype(np.uint8)
@@ -56,7 +50,7 @@ def prnu(image_path):
     original_image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
     denoised_image = denoise(original_image)
-    if denoised_image.shape != original_image.shape: #reshaping shit
+    if denoised_image.shape != original_image.shape: #reshaping stuff
         denoised_image = cv2.resize(denoised_image, (original_image.shape[1], original_image.shape[0]))
 
     prnu_residual = original_image.astype(np.float32) - denoised_image.astype(np.float32)
