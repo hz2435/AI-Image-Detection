@@ -5,7 +5,7 @@ import numpy as np
 from ela import ela
 from prnu import prnu
 
-with open('history_dict.pickle', 'rb') as handle:
+with open('ela_history_dict.pickle', 'rb') as handle:
         history = pickle.load(handle)
 
 def plot(train_metrics, val_metrics, title, y_label, save=True):
@@ -16,14 +16,14 @@ def plot(train_metrics, val_metrics, title, y_label, save=True):
     plt.xlabel('epoch')
     plt.legend(['train', 'val'], loc='upper left')
     if save:
-        plt.savefig(f'../poster_pics/{y_label}.png')
+        plt.savefig(f'../poster_pics/ela_{y_label}.png')
     plt.show()
 
 def plot_loss():
-    plot(history['loss'], history['val_loss'], 'model loss', 'loss')
+    plot(history['loss'], history['val_loss'], 'ela model loss', 'loss')
 
 def plot_acc():
-    plot(history['accuracy'], history['val_accuracy'], 'model accuracy', 'accuracy')
+    plot(history['accuracy'], history['val_accuracy'], 'ela model accuracy', 'accuracy')
 
 def print_acc():
     print('train acc: ' + str(history['accuracy'][-1]))
@@ -41,7 +41,7 @@ def print_f1():
     print('train f1: ' + str(history['f1_score'][-1]))
     print('val f1: ' + str(history['val_f1_score'][-1]))
 
-# plot_loss()
+plot_loss()
 # plot_acc()
 print_acc()
 print_precision()
